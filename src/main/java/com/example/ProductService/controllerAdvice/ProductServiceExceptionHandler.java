@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class ProductServiceExceptionHandler {
 
-    @ExceptionHandler(RuntimeException.class)
+    /*@ExceptionHandler(RuntimeException.class)
     public ResponseEntity<ExceptionDto> handleRuntimeException(){
 
         ExceptionDto exceptionDto = new ExceptionDto();
@@ -22,12 +22,15 @@ public class ProductServiceExceptionHandler {
                 exceptionDto,
                 HttpStatus.UNAUTHORIZED
         );
-    }
+    }*/
 
     @ExceptionHandler(ProductNotFoundException.class)
-    public ResponseEntity<ProductNotFoundExceptionDto> handleProductNotFoundException(){
+    public ResponseEntity<ProductNotFoundExceptionDto> handleProductNotFoundException(ProductNotFoundException e){
 
         ProductNotFoundExceptionDto productNotFoundExceptionDto = new ProductNotFoundExceptionDto();
+
+        //e.printStackTrace();
+        productNotFoundExceptionDto.setProductId(e.getProductId());
         productNotFoundExceptionDto.setMessage("Product not found!");
         productNotFoundExceptionDto.setResolution("please try again with a valid productId.");
 

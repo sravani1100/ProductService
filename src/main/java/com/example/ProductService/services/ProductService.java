@@ -1,5 +1,6 @@
 package com.example.ProductService.services;
 
+import com.example.ProductService.exceptions.CategoryNotFoundException;
 import com.example.ProductService.exceptions.ProductNotFoundException;
 import com.example.ProductService.models.Product;
 
@@ -11,7 +12,7 @@ public interface ProductService {
 
     List<Product> getAllProducts();
 
-    Product createProduct(Product product);
+    Product createProduct(Product product) throws CategoryNotFoundException;
 
-    boolean deleteProduct(Long productId);
+    void deleteProduct(Long productId);
 }

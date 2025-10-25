@@ -1,11 +1,14 @@
 package com.example.ProductService.controllers;
 
+import com.example.ProductService.exceptions.CategoryNotFoundException;
 import com.example.ProductService.exceptions.ProductNotFoundException;
 import com.example.ProductService.models.Product;
 import com.example.ProductService.services.ProductService;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,10 +17,12 @@ import java.util.List;
 @RequestMapping("/products")
 public class ProductController {
 
+    private final RestTemplate restTemplate;
     private ProductService productService;
 
-    public ProductController(ProductService productService){
+    public ProductController(@Qualifier("selfProductService") ProductService productService, RestTemplate restTemplate){
         this.productService = productService;
+        this.restTemplate = restTemplate;
     }
 
     @GetMapping("/{id}")
@@ -33,16 +38,18 @@ public class ProductController {
 
     @GetMapping("/")
     public List<Product> getAllProducts(){
+
         return productService.getAllProducts();
     }
 
     @PostMapping()
-    public Product createProduct(@RequestBody Product product){
-        return new Product();
+    public Product createProduct(@RequestBody Product product) throws CategoryNotFoundException {
+        return productService.createProduct(product);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteProduct(@PathVariable("id") Long productId){
+
         return null;
     }
 }
