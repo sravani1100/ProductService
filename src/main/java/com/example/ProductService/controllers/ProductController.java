@@ -20,20 +20,20 @@ public class ProductController {
     private final RestTemplate restTemplate;
     private ProductService productService;
 
-    public ProductController(@Qualifier("selfProductService") ProductService productService, RestTemplate restTemplate){
+    public ProductController(ProductService productService, RestTemplate restTemplate){
         this.productService = productService;
         this.restTemplate = restTemplate;
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Product> getSingleProduct(@PathVariable("id") Long productId) throws ProductNotFoundException {
+    public Product getSingleProduct(@PathVariable("id") Long productId) throws ProductNotFoundException {
 
-        ResponseEntity<Product> responseEntity = new ResponseEntity<>(
+        /*ResponseEntity<Product> responseEntity = new ResponseEntity<>(
                 productService.getSingleProduct(productId),
                 HttpStatus.OK
-        );
+        );*/
 
-        return responseEntity;
+        return productService.getSingleProduct(productId);
     }
 
     @GetMapping("/")
