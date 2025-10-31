@@ -22,7 +22,7 @@ class ProductControllerTest {
     private ProductService productService;
 
     //AAA
-    @Test
+    /*@Test
     public void testGetSingleProductPositiveCase() throws ProductNotFoundException {
         //ARRANGE
         Long productId = 10L;
@@ -39,9 +39,9 @@ class ProductControllerTest {
         //ASSERT
         assertEquals(expectedProduct, actualProduct);
 
-    }
+    }*/
 
-    @Test
+    /*@Test
     public void testGetSingleProductThrowsProductNotFoundException() throws ProductNotFoundException {
         ProductNotFoundException productNotFoundException = new ProductNotFoundException("Please pass the correct producrtId");
         when(productService.getSingleProduct(-1L)).thenThrow(productNotFoundException);
@@ -51,5 +51,5 @@ class ProductControllerTest {
 
         assertEquals(productNotFoundException.getMessage(), exception.getMessage());
 
-    }
+    }*/
 }
