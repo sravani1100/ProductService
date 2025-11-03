@@ -32,18 +32,18 @@ public class ProductController {
         this.authCommons = authCommons;
     }
 
-    @GetMapping("/{id}/{token}")
-    public Product getSingleProduct(@PathVariable("id") Long productId, @PathVariable String token) throws ProductNotFoundException {
+    @GetMapping("/{id}")
+    public Product getSingleProduct(@PathVariable("id") Long productId) throws ProductNotFoundException {
 
         /*ResponseEntity<Product> responseEntity = new ResponseEntity<>(
                 productService.getSingleProduct(productId),
                 HttpStatus.OK
         );*/
 
-        UserDto userDto = authCommons.validateToken(token);
-        if(userDto == null){
+        UserDto userDto = authCommons.validateToken("SampleToken");
+        /*if(userDto == null){
             throw new UnAuthorizedException("Invalid Token provided.");
-        }
+        }*/
         return productService.getSingleProduct(productId);
     }
 
