@@ -8,6 +8,7 @@ import com.example.ProductService.exceptions.UnAuthorizedException;
 import com.example.ProductService.models.Product;
 import com.example.ProductService.services.ProductService;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -53,6 +54,11 @@ public class ProductController {
         return productService.getAllProducts();
     }
 
+    @GetMapping("/title/{title}/{pageNumber}/{pageSize}")
+    public Page<Product> getProductsByTitle(@PathVariable("title") String title, @PathVariable("pageNumber") int pageNumber, @PathVariable("pageSize") int pageSize){
+        return productService.getProductsByTitle(title, pageNumber, pageSize);
+    }
+
     @PostMapping()
     public Product createProduct(@RequestBody Product product) throws CategoryNotFoundException {
         return productService.createProduct(product);
@@ -63,4 +69,5 @@ public class ProductController {
 
         return null;
     }
+
 }

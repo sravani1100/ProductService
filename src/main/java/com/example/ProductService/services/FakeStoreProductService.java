@@ -5,6 +5,7 @@ import com.example.ProductService.exceptions.ProductNotFoundException;
 import com.example.ProductService.models.Category;
 import com.example.ProductService.models.Product;
 import org.springframework.context.annotation.Primary;
+import org.springframework.data.domain.Page;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -14,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service("fakeStoreProductService")
-@Primary
+//@Primary
 public class FakeStoreProductService implements ProductService{
 
     private RestTemplate restTemplate;
@@ -28,7 +29,7 @@ public class FakeStoreProductService implements ProductService{
     @Override
     public Product getSingleProduct(Long productId) throws ProductNotFoundException {
 
-        Product product = (Product)redisTemplate.opsForHash().get("PRODUCTS", "Product_"+productId);
+        /*Product product = (Product)redisTemplate.opsForHash().get("PRODUCTS", "Product_"+productId);
         if(product != null){
             return product;
         }
@@ -43,8 +44,8 @@ public class FakeStoreProductService implements ProductService{
         }
 
         product = convertFakeStoreProductDtoToProduct(fakeStoreProductDto);
-        redisTemplate.opsForHash().put("PRODUCTS", "Product_"+productId, product);
-        return product;
+        redisTemplate.opsForHash().put("PRODUCTS", "Product_"+productId, product);*/
+        return new Product();
     }
 
     @Override
@@ -69,6 +70,11 @@ public class FakeStoreProductService implements ProductService{
     @Override
     public void deleteProduct(Long productId) {
 
+    }
+
+    @Override
+    public Page<Product> getProductsByTitle(String title, int pageNumber, int pageSize) {
+        return Page.empty();
     }
 
     private static Product convertFakeStoreProductDtoToProduct(FakeStoreProductDto fakeStoreProductDto){

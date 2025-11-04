@@ -2,6 +2,8 @@ package com.example.ProductService.repositories;
 
 import com.example.ProductService.models.Category;
 import com.example.ProductService.models.Product;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -13,10 +15,9 @@ import java.util.Optional;
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
 
-    @Override
     Optional<Product> findById(Long productId);
 
-    List<Product> findByTitleContainsIgnoreCase(String title);
+    Page<Product> findByTitleContainsIgnoreCase(String title, Pageable pageable);
 
     List<Product> findByPriceBetween(Double priceAfter, Double priceBefore);
 

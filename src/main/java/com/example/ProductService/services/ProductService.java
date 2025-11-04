@@ -3,6 +3,7 @@ package com.example.ProductService.services;
 import com.example.ProductService.exceptions.CategoryNotFoundException;
 import com.example.ProductService.exceptions.ProductNotFoundException;
 import com.example.ProductService.models.Product;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 
@@ -15,4 +16,6 @@ public interface ProductService {
     Product createProduct(Product product) throws CategoryNotFoundException;
 
     void deleteProduct(Long productId);
+
+    Page<Product> getProductsByTitle(String title, int pageNumber, int pageSize);
 }

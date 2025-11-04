@@ -1,5 +1,6 @@
 package com.example.ProductService.models;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.OneToMany;
@@ -15,6 +16,6 @@ public class Category extends BaseModel{
 
     private String title;
 
-    @OneToMany(mappedBy = "category")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "category", cascade = CascadeType.REMOVE)
     private List<Product> products;
 }
